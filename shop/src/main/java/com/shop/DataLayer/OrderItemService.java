@@ -8,6 +8,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class OrderItemService {
     private static final Logger logger = LoggerFactory.getLogger(ProductService.class);
@@ -84,31 +86,24 @@ public class OrderItemService {
         }
     }
 
-    public void deleteOrderItem(int orderItemId) {
+    public void deleteOrderItem(int orderItemId) throws Exception {
         try {
             orderItemRepository.deleteById(orderItemId);
         } catch (Exception e) {
             logger.error("Failed to delete order item: " + e.getMessage());
-            throw new RuntimeException("Failed to delete order item: " + e.getMessage());
-        }
-    }
-/*
-    public List<OrderItem> getOrderItemsByOrderId(int orderId) {
-        try {
-            return orderItemRepository.findByOrderId(orderId);
-        } catch (Exception e) {
-            logger.error("Failed to get order items by order ID: " + e.getMessage());
-            throw new RuntimeException("Failed to get order items by order ID: " + e.getMessage());
+            throw new Exception("Failed to delete order item: " + e.getMessage());
         }
     }
 
-    public List<OrderItem> getAllOrderItems() {
+    public List<OrderItem> getOrderItemsByOrderId(int orderId) throws Exception {
         try {
-            return orderItemRepository.findAll();
+
+            return orderItemRepository.findByOrderId(orderId);
         } catch (Exception e) {
-            logger.error("Failed to get all order items: " + e.getMessage());
-            throw new RuntimeException("Failed to get all order items: " + e.getMessage());
+            logger.error("Failed to get order items by order ID: " + e.getMessage());
+            throw new Exception("Failed to get order items by order ID: " + e.getMessage());
         }
     }
-    */
+
+
 }

@@ -10,6 +10,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/orderItem")
 public class OrderItemController {
@@ -49,11 +51,25 @@ public class OrderItemController {
     }
 
 
-    @PostMapping("/subtract/{orderId}/{productId}/{quantity}")
-    public ResponseEntity<String> subtractOrderItemQuantity(@PathVariable int orderId, @PathVariable int productId, @PathVariable int quantity) {
+    @PostMapping("/subtract/{userID}")
+    public ResponseEntity<String> subtractOrderItemQuantity(@PathVariable int userID,@RequestBody OrderItem orderItem) {
         try {
-            orderItemService.subtractOrderItemQuantity(orderId, productId, quantity);
+            Order order = orderService.getOrCreateOrder(userID);
+            orderItemService.subtractOrderItemQuantity(order.getOrderId(), orderItem.getProductId(), orderItem.getQuantity());
             return ResponseEntity.ok("Order item quantity subtracted successfully.");
+        } catch (Exception e) {
+            return sendError(e.getMessage());
+        }
+    }
+
+    @GetMapping("/getOrderItems/{userID}")
+    public ResponseEntity getOrderItems(@PathVariable int userID) {
+        // Retrieve the order items based on the order ID
+        List<OrderItem> orderItems = null;
+        try {
+             Order order = orderService.getOrCreateOrder(userID);
+            orderItems = orderItemService.getOrderItemsByOrderId(order.getOrderId());
+            return ResponseEntity.ok(orderItems);
         } catch (Exception e) {
             return sendError(e.getMessage());
         }

@@ -46,7 +46,7 @@ public class UserService {
         return user.getName()+ " add successfully";
     }
 
-    public String login(String email, String password) throws Exception {
+    public int login(String email, String password) throws Exception {
         logger.info("login with email: {}", email);
     try {
 
@@ -62,7 +62,9 @@ public class UserService {
         //if there is user found and correct password
         else if (user.getPassword().equals(password)) {
             logger.info("Login successful for user with email: {}", email);
-            return "Connection succeeded TOKEN: 1234";
+            //return token
+            //here uts user ID
+            return user.getUserID();
 
         }
         //if the password wrong

@@ -18,20 +18,7 @@ public class OrderController {
     }
 
 /*
-    @GetMapping("/{orderId}")
-    public ResponseEntity<Order> getOrderById(@PathVariable int orderId) {
-        try {
-            Order order = orderService.getOrderById(orderId);
-            if (order != null) {
-                return ResponseEntity.ok(order);
-            } else {
-                return sendError("Order not found");
-            }
-        }catch (Exception e){
-            return sendError(e.getMessage());
-        }
-    }*/
-
+//create automatic then add order item
     @PostMapping("/create/{userID}")
     public ResponseEntity<String> createOrder(@PathVariable int userID) {
         try {
@@ -40,7 +27,7 @@ public class OrderController {
         }catch (Exception e){
             return sendError(e.getMessage());
         }
-    }
+    }*/
 
     @PutMapping("/update/{orderId}")
     public ResponseEntity<String> updateOrder(@PathVariable int orderId, @RequestBody Order updatedOrder) {
@@ -67,7 +54,7 @@ public class OrderController {
             return sendError(e.getMessage());
         }
     }*/
-    @GetMapping("/getAllUserCompleted/{orderId}")
+    @GetMapping("/getAllUserCompleted/{userID}")
     public ResponseEntity<?> getAllUserOrders(@PathVariable int userID) {
         try {
             List<Order> orders = orderService.getAllUserSendOrders(userID);

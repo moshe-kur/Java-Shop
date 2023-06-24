@@ -31,9 +31,8 @@ public class ProductController {
             return sendError(e.getMessage());
         }
     }
-    @GetMapping("/getAllProducts")
-    public ResponseEntity<?> getAllProducts() {
-        // return ? because is string or list
+    @GetMapping("/getAllProduct")
+    public ResponseEntity getAllProducts() {
         try {
             List<Product> products = productService.getAllProducts();
             return ResponseEntity.ok(products);
@@ -42,6 +41,7 @@ public class ProductController {
         }
     }
     /*
+    //get one
     @GetMapping("/getProduct/{productId}")
     public ResponseEntity<Product> getProductById(@PathVariable int productId) {
         Product product = productService.getProductById(productId);

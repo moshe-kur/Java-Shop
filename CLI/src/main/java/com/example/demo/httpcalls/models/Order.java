@@ -1,6 +1,5 @@
-package com.shop.models;
+package com.example.demo.httpcalls.models;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.sql.Timestamp;
@@ -24,7 +23,6 @@ public class Order {
     private boolean isSend = false;
     @ManyToOne
     @JoinColumn(name = "userID", referencedColumnName = "userID", insertable = false, updatable = false)
-    @JsonIgnore
     private User user;
 
 

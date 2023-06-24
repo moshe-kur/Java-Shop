@@ -53,12 +53,12 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<String> login(@RequestBody User user) {
+    public ResponseEntity login(@RequestBody User user) {
         try {
             logger.info("Login request received for user with email: {}", user.getEmail());
 
             // Call the login method of the UserService
-            String token = userService.login(user.getEmail(), user.getPassword());
+            int token = userService.login(user.getEmail(), user.getPassword());
 
             logger.info("Login successful for user with email: {}", user.getEmail());
             //can to task if token get real token
@@ -70,6 +70,8 @@ public class UserController {
             return sendError(e.getMessage());
         }
     }
+
+
 
     public ResponseEntity<String> sendError(String str) {
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(str);
